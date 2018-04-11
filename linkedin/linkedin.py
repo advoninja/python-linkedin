@@ -93,7 +93,7 @@ class LinkedInAuthentication(object):
     def authorization_url(self):
         qd = {'response_type': 'code',
               'client_id': self.key,
-              'scope': (' '.join(self.permissions)).strip(),
+              # 'scope': (' '.join(self.permissions)).strip(),
               'state': self.state or self._make_new_state(),
               'redirect_uri': self.redirect_uri}
         # urlencode uses quote_plus when encoding the query string so,
