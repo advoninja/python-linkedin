@@ -28,7 +28,8 @@ PERMISSIONS = enum('Permission',
                    CONTACT_INFO='r_contactinfo',
                    NETWORK_UPDATES='rw_nus',
                    GROUPS='rw_groups',
-                   MESSAGES='w_messages')
+                   MESSAGES='w_messages',
+                   SHARE='w_share')
 
 ENDPOINTS = enum('LinkedInURL',
                  PEOPLE='https://api.linkedin.com/v1/people',
@@ -93,7 +94,7 @@ class LinkedInAuthentication(object):
     def authorization_url(self):
         qd = {'response_type': 'code',
               'client_id': self.key,
-              # 'scope': (' '.join(self.permissions)).strip(),
+              'scope': (' '.join(self.permissions)).strip(),
               'state': self.state or self._make_new_state(),
               'redirect_uri': self.redirect_uri}
         # urlencode uses quote_plus when encoding the query string so,
