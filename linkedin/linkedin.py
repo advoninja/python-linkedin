@@ -33,6 +33,7 @@ PERMISSIONS = enum('Permission',
                    SHARE='w_share')
 
 ENDPOINTS = enum('LinkedInURL',
+                 BASE='https://api.linkedin.com/v2',
                  PEOPLE='https://api.linkedin.com/v2/people',
                  PEOPLE_SEARCH='https://api.linkedin.com/v2/people-search',
                  GROUPS='https://api.linkedin.com/v2/groups',
@@ -183,25 +184,40 @@ class LinkedInApplication(object):
 
         return requests.request(method.upper(), url, **kw)
 
+    # def get_profile(self, member_id=None, member_url=None, selectors=None,
+    #                 params=None, headers=None):
+    #     if member_id:
+    #         if type(member_id) is list:
+    #             # Batch request, ids as CSV.
+    #             url = '%s::(%s)' % (ENDPOINTS.PEOPLE,
+    #                                 ','.join(member_id))
+    #         else:
+    #             url = '%s/id=%s' % (ENDPOINTS.PEOPLE, str(member_id))
+    #     elif member_url:
+    #         url = '%s/url=%s' % (ENDPOINTS.PEOPLE, quote_plus(member_url))
+    #     else:
+    #         url = '%s/~' % ENDPOINTS.PEOPLE
+    #     if selectors:
+    #         url = '%s:(%s)' % (url, LinkedInSelector.parse(selectors))
+
+    #     response = self.make_request('GET', url, params=params, headers=headers)
+    #     raise_for_error(response)
+    #     return response.json()
+
     def get_profile(self, member_id=None, member_url=None, selectors=None,
                     params=None, headers=None):
-        if member_id:
-            if type(member_id) is list:
-                # Batch request, ids as CSV.
-                url = '%s::(%s)' % (ENDPOINTS.PEOPLE,
-                                    ','.join(member_id))
-            else:
-                url = '%s/id=%s' % (ENDPOINTS.PEOPLE, str(member_id))
-        elif member_url:
-            url = '%s/url=%s' % (ENDPOINTS.PEOPLE, quote_plus(member_url))
-        else:
-            url = '%s/~' % ENDPOINTS.PEOPLE
-        if selectors:
-            url = '%s:(%s)' % (url, LinkedInSelector.parse(selectors))
-
+        connections = 0
+        if selectors is not None and 'num-connections' in selectors:
+            connections_response = self.get_connections(totals_only=True)
+            connections_body = connections_response.get('paging', None)
+            connections = connections_body.get('total', 0)
+        
+        url = '%s/me' % ENDPOINTS.BASE
         response = self.make_request('GET', url, params=params, headers=headers)
         raise_for_error(response)
-        return response.json()
+        json_response = response.json()
+        json_response.update({'numConnections': connections})
+        return json_response
 
     def search_profile(self, selectors=None, params=None, headers=None):
         if selectors:
