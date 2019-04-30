@@ -390,7 +390,7 @@ class LinkedInApplication(object):
         headers = {
                 'Authorization': 'Bearer AQXCElJzHc6rWbkD-vGzLTUz_JR2qtxnMuA07NPb0lS9p_OM1WYXP1gB62WsuhiT2N0IZDmKvE-glO5pppQNCBUCmlFBoHvlU7HwD4KloBmVIqWfCha_koO2lBGs9YifCzqxwaXunK0ji6f_AyNSyTjEZr_UJ7ohGImVtcdwHMFrgIRRIC3bRU-htbJ34NyripH26IBijn30s1SPI6K7sO0Zhvur10XzVbexziwrCG9NlaO1mwndbiLfhUWYIVmGtFYkipI5x32KpLEvSmIIuMzxn47EZX104uahwugAI5U4SEhmVhfZerKQCr5AbRXbHFNoLYgQVVQ66lC19OS-apLqr7ZV_A'
         }
-        response = self.make_request('GET', url, params=params, headers=headers)
+        response = self.make_request('GET', url, params=None, headers=headers)
         print url
         print params
         print headers
