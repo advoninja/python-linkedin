@@ -383,6 +383,8 @@ class LinkedInApplication(object):
             url = '%s:(%s)' % (url, LinkedInSelector.parse(selectors))
 
         response = self.make_request('GET', url, params=params, headers=headers)
+        print "get companies"
+        print response
         raise_for_error(response)
         return response.json()
 
