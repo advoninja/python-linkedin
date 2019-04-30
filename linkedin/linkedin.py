@@ -197,7 +197,7 @@ class LinkedInApplication(object):
         kw = dict(data=data, params=params,
                   headers=headers, timeout=timeout)
 
-        headers.update('Authorization': 'Bearer ' + self.authentication.token.access_token)
+        headers.update({'Authorization': 'Bearer ' + self.authentication.token.access_token})
         return requests.request(method.upper(), url, **kw)
 
     # def get_profile(self, member_id=None, member_url=None, selectors=None,
