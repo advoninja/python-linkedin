@@ -397,7 +397,7 @@ class LinkedInApplication(object):
         print params
         print headers
         print "get companies"
-        print response
+        print response._content
         raise_for_error(response)
         return response.json()
 
