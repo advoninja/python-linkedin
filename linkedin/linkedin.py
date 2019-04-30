@@ -384,7 +384,12 @@ class LinkedInApplication(object):
         if selectors:
             url = '%s:(%s)' % (url, LinkedInSelector.parse(selectors))
 
+        print url
+        url = ENDPOINTS.ORGANIZATIONS
+
+
         response = self.make_request('GET', url, params=params, headers=headers)
+        print url
         print params
         print headers
         print "get companies"
