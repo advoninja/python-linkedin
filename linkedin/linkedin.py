@@ -39,7 +39,7 @@ ENDPOINTS = enum('LinkedInURL',
                  GROUPS='https://api.linkedin.com/v2/groups',
                  POSTS='https://api.linkedin.com/v2/posts',
                  COMPANIES='https://api.linkedin.com/v2/companies',
-                 ORGANIZATIONS='https://api.linkedin.com/v2/organizationalEntityAcls',
+                 ORGANIZATIONS='https://api.linkedin.com/v2/organizationalEntityAcls?q=roleAssignee&role=ADMINISTRATOR&state=APPROVED&projection=%28%2A,elements%2A%28%2A,organizationalTarget~%28%2A%29%29%29',
                  COMPANY_SEARCH='https://api.linkedin.com/v2/company-search',
                  JOBS='https://api.linkedin.com/v2/jobs',
                  JOB_SEARCH='https://api.linkedin.com/v2/job-search')
@@ -387,15 +387,12 @@ class LinkedInApplication(object):
         print url
         url = ENDPOINTS.ORGANIZATIONS
 
-        params = {'q':'roleAssignee',
-                    'role':'ADMINISTRATOR',
-                    'state':'APPROVED',
-                    'projection':'%28%2A,elements%2A%28%2A,organizationalTarget~%28%2A%29%29%29'}
+        
         headers = {
-                'Authorization': 'Bearer AQXCElJzHc6rWbkD-vGzLTUz_JR2qtxnMuA07NPb0lS9p_OM1WYXP1gB62WsuhiT2N0IZDmKvE-glO5pppQNCBUCmlFBoHvlU7HwD4KloBmVIqWfCha_koO2lBGs9YifCzqxwaXunK0ji6f_AyNSyTjEZr_UJ7ohGImVtcdwHMFrgIRRIC3bRU-htbJ34NyripH26IBijn30s1SPI6K7sO0Zhvur10XzVbexziwrCG9NlaO1mwndbiLfhUWYIVmGtFYkipI5x32KpLEvSmIIuMzxn47EZX104uahwugAI5U4SEhmVhfZerKQCr5AbRXbHFNoLYgQVVQ66lC19OS-apLqr7ZV_A'
+                'Authorization': 'Bearer AQVJCAPAivJJOVO8w_daATqamE5Hk4WtAzw07ClkG4fnsHimGsmvAfdHnmZ8VjC61XIvd3P5Rj6d-a7AqrMulkBkSSaGaQRXUJpbXl-fD5dDLV00J81Mz0YVKn09GRWQWtQ1wnAhLvnSb-83cCG56xesQUKNS9duzBi8kbku_NXkRRDtIm1IaAOitFkuJFw2burhd4x7CxKYTN_IzZrmGAlGxVYqFNdZMqAhUeyvLrmuCGoJeWNLC6lrVHx-IS1-1y5UKTnio7_ED6QqbhqGvDxx6wvYy83qftyclETTYtbJx7mUaA17RP22Q5KoSGlJiiWfr5Aw-DmmPjKjsf1xSGsMHLPXhA'
         }
         # response = self.make_request('GET', url, params=params, headers=headers)
-        response = requests.get(url, params=params, headers=headers)
+        response = requests.get(url, headers=headers)
         print url
         print params
         print headers
