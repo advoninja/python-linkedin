@@ -39,11 +39,11 @@ ENDPOINTS = enum('LinkedInURL',
                  GROUPS='https://api.linkedin.com/v2/groups',
                  POSTS='https://api.linkedin.com/v2/posts',
                  COMPANIES='https://api.linkedin.com/v2/companies',
-                 ORGANIZATIONS='https://api.linkedin.com/v2/organizationalEntityAcls?q=roleAssignee&role=ADMINISTRATOR&state=APPROVED&projection=(*,elements*(*,organizationalTarget~(*)))',
+                 ORGANIZATIONS='https://api.linkedin.com/v2/organizationalEntityAcls',
                  COMPANY_SEARCH='https://api.linkedin.com/v2/company-search',
                  JOBS='https://api.linkedin.com/v2/jobs',
                  JOB_SEARCH='https://api.linkedin.com/v2/job-search')
-
+# ORGANIZATIONS='https://api.linkedin.com/v2/organizationalEntityAcls?q=roleAssignee&role=ADMINISTRATOR&state=APPROVED&projection=(*,elements*(*,organizationalTarget~(*)))',
 # ENDPOINTS = enum('LinkedInURL',
 #                  PEOPLE='https://api.linkedin.com/v1/people',
 #                  PEOPLE_SEARCH='https://api.linkedin.com/v1/people-search',
@@ -387,10 +387,14 @@ class LinkedInApplication(object):
         print url
         url = ENDPOINTS.ORGANIZATIONS
 
+        params = {'q':'roleAssignee',
+                    'role':'ADMINISTRATOR',
+                    'state':'APPROVED',
+                    'projection':'%28%2A,elements%2A%28%2A,organizationalTarget~%28%2A%29%29%29'}
         headers = {
                 'Authorization': 'Bearer AQXCElJzHc6rWbkD-vGzLTUz_JR2qtxnMuA07NPb0lS9p_OM1WYXP1gB62WsuhiT2N0IZDmKvE-glO5pppQNCBUCmlFBoHvlU7HwD4KloBmVIqWfCha_koO2lBGs9YifCzqxwaXunK0ji6f_AyNSyTjEZr_UJ7ohGImVtcdwHMFrgIRRIC3bRU-htbJ34NyripH26IBijn30s1SPI6K7sO0Zhvur10XzVbexziwrCG9NlaO1mwndbiLfhUWYIVmGtFYkipI5x32KpLEvSmIIuMzxn47EZX104uahwugAI5U4SEhmVhfZerKQCr5AbRXbHFNoLYgQVVQ66lC19OS-apLqr7ZV_A'
         }
-        response = self.make_request('GET', url, params=None, headers=headers)
+        response = self.make_request('GET', url, params=params, headers=headers)
         print url
         print params
         print headers
