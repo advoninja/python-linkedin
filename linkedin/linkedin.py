@@ -386,6 +386,7 @@ class LinkedInApplication(object):
 
         response = self.make_request('GET', url, params=params, headers=headers)
         print params
+        print headers
         print "get companies"
         print response
         raise_for_error(response)
