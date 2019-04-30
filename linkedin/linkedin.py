@@ -39,7 +39,7 @@ ENDPOINTS = enum('LinkedInURL',
                  GROUPS='https://api.linkedin.com/v2/groups',
                  POSTS='https://api.linkedin.com/v2/posts',
                  COMPANIES='https://api.linkedin.com/v2/companies',
-                 ORGANIZATIONS='https://api.linkedin.com/v2/organizationalEntityAcls',
+                 ORGANIZATIONS='https://api.linkedin.com/v2/organizationalEntityAcls?q=roleAssignee&role=ADMINISTRATOR&state=APPROVED&projection=(*,elements*(*,organizationalTarget~(*)))',
                  COMPANY_SEARCH='https://api.linkedin.com/v2/company-search',
                  JOBS='https://api.linkedin.com/v2/jobs',
                  JOB_SEARCH='https://api.linkedin.com/v2/job-search')
@@ -385,6 +385,7 @@ class LinkedInApplication(object):
             url = '%s:(%s)' % (url, LinkedInSelector.parse(selectors))
 
         response = self.make_request('GET', url, params=params, headers=headers)
+        print params
         print "get companies"
         print response
         raise_for_error(response)
