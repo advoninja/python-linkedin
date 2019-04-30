@@ -185,6 +185,21 @@ class LinkedInApplication(object):
 
         return requests.request(method.upper(), url, **kw)
 
+    def make_request_auth2(self, method, url, data=None, params=None, headers=None,
+                     timeout=60):
+        if headers is None:
+            headers = {'x-li-format': 'json', 'Content-Type': 'application/json'}
+        else:
+            headers.update({'x-li-format': 'json', 'Content-Type': 'application/json'})
+
+        if params is None:
+            params = {}
+        kw = dict(data=data, params=params,
+                  headers=headers, timeout=timeout)
+
+        headers.update('Authorization': 'Bearer ' + self.authentication.token.access_token)
+        return requests.request(method.upper(), url, **kw)
+
     # def get_profile(self, member_id=None, member_url=None, selectors=None,
     #                 params=None, headers=None):
     #     if member_id:
@@ -391,8 +406,8 @@ class LinkedInApplication(object):
         # headers = {
         #         'Authorization': 'Bearer AQVJCAPAivJJOVO8w_daATqamE5Hk4WtAzw07ClkG4fnsHimGsmvAfdHnmZ8VjC61XIvd3P5Rj6d-a7AqrMulkBkSSaGaQRXUJpbXl-fD5dDLV00J81Mz0YVKn09GRWQWtQ1wnAhLvnSb-83cCG56xesQUKNS9duzBi8kbku_NXkRRDtIm1IaAOitFkuJFw2burhd4x7CxKYTN_IzZrmGAlGxVYqFNdZMqAhUeyvLrmuCGoJeWNLC6lrVHx-IS1-1y5UKTnio7_ED6QqbhqGvDxx6wvYy83qftyclETTYtbJx7mUaA17RP22Q5KoSGlJiiWfr5Aw-DmmPjKjsf1xSGsMHLPXhA'
         # }
-        # response = self.make_request('GET', url, params=params, headers=headers)
-        response = requests.get(url, params=params, headers=headers)
+        response = self.make_request_auth2('GET', url, params=params, headers=headers)
+        # response = requests.get(url, params=params, headers=headers)
         print url
         print params
         print headers
