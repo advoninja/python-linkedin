@@ -39,6 +39,7 @@ ENDPOINTS = enum('LinkedInURL',
                  GROUPS='https://api.linkedin.com/v2/groups',
                  POSTS='https://api.linkedin.com/v2/posts',
                  COMPANIES='https://api.linkedin.com/v2/companies',
+                 ORGANIZATIONS='https://api.linkedin.com/v2/organizationalEntityAcls'
                  COMPANY_SEARCH='https://api.linkedin.com/v2/company-search',
                  JOBS='https://api.linkedin.com/v2/jobs',
                  JOB_SEARCH='https://api.linkedin.com/v2/job-search')
@@ -369,7 +370,8 @@ class LinkedInApplication(object):
     def get_companies(self, company_ids=None, universal_names=None, selectors=None,
                       params=None, headers=None):
         identifiers = []
-        url = ENDPOINTS.COMPANIES
+        url = ENDPOINTS.ORGANIZATIONS
+        # url = ENDPOINTS.COMPANIES
         if company_ids:
             identifiers += map(str, company_ids)
 
