@@ -247,13 +247,22 @@ class LinkedInApplication(object):
 
     def get_picture_urls(self, member_id=None, member_url=None,
                          params=None, headers=None):
+        # if member_id:
+        #     url = '%s/id=%s/picture-urls::(original)' % (ENDPOINTS.PEOPLE, str(member_id))
+        # elif member_url:
+        #     url = '%s/url=%s/picture-urls::(original)' % (ENDPOINTS.PEOPLE,
+        #                                                   quote_plus(member_url))
+        # else:
+        #     url = '%s/~/picture-urls::(original)' % ENDPOINTS.PEOPLE
         if member_id:
             url = '%s/id=%s/picture-urls::(original)' % (ENDPOINTS.PEOPLE, str(member_id))
         elif member_url:
             url = '%s/url=%s/picture-urls::(original)' % (ENDPOINTS.PEOPLE,
                                                           quote_plus(member_url))
         else:
-            url = '%s/~/picture-urls::(original)' % ENDPOINTS.PEOPLE
+            # url = '%s/~/picture-urls::(original)' % ENDPOINTS.PEOPLE
+            url = '%s/me?projection=(id,firstName,lastName,profilePicture(displayImage~:playableStreams))' % ENDPOINTS.BASE
+            
 
         response = self.make_request('GET', url, params=params, headers=headers)
         raise_for_error(response)
