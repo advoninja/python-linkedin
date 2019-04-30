@@ -264,7 +264,7 @@ class LinkedInApplication(object):
             url = '%s/me?projection=(id,firstName,lastName,profilePicture(displayImage~:playableStreams))' % ENDPOINTS.BASE
             
 
-        response = self.make_request('GET', url, params=params, headers=headers)
+        response = self.make_request_auth2('GET', url, params=params, headers=headers)
         raise_for_error(response)
         return response.json()
 
