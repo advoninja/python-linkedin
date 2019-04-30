@@ -194,10 +194,10 @@ class LinkedInApplication(object):
 
         if params is None:
             params = {}
-        kw = dict(data=data, params=params,
+        headers.update({'Authorization': 'Bearer ' + self.authentication.token.access_token})
+        kw = dict(data=data,
                   headers=headers, timeout=timeout)
 
-        headers.update({'Authorization': 'Bearer ' + self.authentication.token.access_token})
         return requests.request(method.upper(), url, **kw)
 
     # def get_profile(self, member_id=None, member_url=None, selectors=None,
@@ -401,7 +401,7 @@ class LinkedInApplication(object):
 
         print url
         url = ENDPOINTS.ORGANIZATIONS
-
+        params={}
         
         # headers = {
         #         'Authorization': 'Bearer AQVJCAPAivJJOVO8w_daATqamE5Hk4WtAzw07ClkG4fnsHimGsmvAfdHnmZ8VjC61XIvd3P5Rj6d-a7AqrMulkBkSSaGaQRXUJpbXl-fD5dDLV00J81Mz0YVKn09GRWQWtQ1wnAhLvnSb-83cCG56xesQUKNS9duzBi8kbku_NXkRRDtIm1IaAOitFkuJFw2burhd4x7CxKYTN_IzZrmGAlGxVYqFNdZMqAhUeyvLrmuCGoJeWNLC6lrVHx-IS1-1y5UKTnio7_ED6QqbhqGvDxx6wvYy83qftyclETTYtbJx7mUaA17RP22Q5KoSGlJiiWfr5Aw-DmmPjKjsf1xSGsMHLPXhA'
