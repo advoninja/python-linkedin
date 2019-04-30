@@ -388,9 +388,9 @@ class LinkedInApplication(object):
         url = ENDPOINTS.ORGANIZATIONS
 
         
-        headers = {
-                'Authorization': 'Bearer AQVJCAPAivJJOVO8w_daATqamE5Hk4WtAzw07ClkG4fnsHimGsmvAfdHnmZ8VjC61XIvd3P5Rj6d-a7AqrMulkBkSSaGaQRXUJpbXl-fD5dDLV00J81Mz0YVKn09GRWQWtQ1wnAhLvnSb-83cCG56xesQUKNS9duzBi8kbku_NXkRRDtIm1IaAOitFkuJFw2burhd4x7CxKYTN_IzZrmGAlGxVYqFNdZMqAhUeyvLrmuCGoJeWNLC6lrVHx-IS1-1y5UKTnio7_ED6QqbhqGvDxx6wvYy83qftyclETTYtbJx7mUaA17RP22Q5KoSGlJiiWfr5Aw-DmmPjKjsf1xSGsMHLPXhA'
-        }
+        # headers = {
+        #         'Authorization': 'Bearer AQVJCAPAivJJOVO8w_daATqamE5Hk4WtAzw07ClkG4fnsHimGsmvAfdHnmZ8VjC61XIvd3P5Rj6d-a7AqrMulkBkSSaGaQRXUJpbXl-fD5dDLV00J81Mz0YVKn09GRWQWtQ1wnAhLvnSb-83cCG56xesQUKNS9duzBi8kbku_NXkRRDtIm1IaAOitFkuJFw2burhd4x7CxKYTN_IzZrmGAlGxVYqFNdZMqAhUeyvLrmuCGoJeWNLC6lrVHx-IS1-1y5UKTnio7_ED6QqbhqGvDxx6wvYy83qftyclETTYtbJx7mUaA17RP22Q5KoSGlJiiWfr5Aw-DmmPjKjsf1xSGsMHLPXhA'
+        # }
         # response = self.make_request('GET', url, params=params, headers=headers)
         response = requests.get(url, headers=headers)
         print url
