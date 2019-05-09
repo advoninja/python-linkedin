@@ -175,13 +175,13 @@ class LinkedInApplication(object):
         kw = dict(data=data, params=params,
                   headers=headers, timeout=timeout)
 
-        if isinstance(self.authentication, LinkedInDeveloperAuthentication):
-            # Let requests_oauthlib.OAuth1 do *all* of the work here
-            auth = OAuth1(self.authentication.consumer_key, self.authentication.consumer_secret,
-                          self.authentication.user_token, self.authentication.user_secret)
-            kw.update({'auth': auth})
-        else:
-            params.update({'oauth2_access_token': self.authentication.token.access_token})
+        # if isinstance(self.authentication, LinkedInDeveloperAuthentication):
+        #     # Let requests_oauthlib.OAuth1 do *all* of the work here
+        #     auth = OAuth1(self.authentication.consumer_key, self.authentication.consumer_secret,
+        #                   self.authentication.user_token, self.authentication.user_secret)
+        #     kw.update({'auth': auth})
+        # else:
+        params.update({'oauth2_access_token': self.authentication.token.access_token})
 
         return requests.request(method.upper(), url, **kw)
 
@@ -195,6 +195,8 @@ class LinkedInApplication(object):
         if params is None:
             params = {}
         headers.update({'Authorization': 'Bearer ' + self.authentication.token.access_token})
+        print headers
+        print "hai"
         kw = dict(data=data,
                   headers=headers, timeout=timeout)
 
