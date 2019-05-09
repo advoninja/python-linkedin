@@ -21,7 +21,7 @@ __all__ = ['LinkedInAuthentication', 'LinkedInApplication', 'PERMISSIONS']
 
 PERMISSIONS = enum('Permission',
                    COMPANY_ADMIN='rw_company_admin',
-                   BASIC_PROFILE='r_basicprofile',
+                   BASIC_PROFILE='r_liteprofile',
                    FULL_PROFILE='r_fullprofile',
                    EMAIL_ADDRESS='r_emailaddress',
                    NETWORK='r_network',
@@ -30,7 +30,7 @@ PERMISSIONS = enum('Permission',
                    GROUPS='rw_groups',
                    MESSAGES='w_messages',
                    ORGANIZATION='rw_organization',
-                   SHARE='w_share')
+                   SHARE='w_member_social')
 
 ENDPOINTS = enum('LinkedInURL',
                  BASE='https://api.linkedin.com/v2',
