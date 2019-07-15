@@ -167,6 +167,7 @@ class LinkedInApplication(object):
 
     def make_request(self, method, url, data=None, params=None, headers=None,
                      timeout=60):
+        print "Enter make_request"
         if headers is None:
             headers = {'x-li-format': 'json', 'Content-Type': 'application/json'}
         else:
