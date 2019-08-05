@@ -20,7 +20,6 @@ from .utils import enum, to_utf8, raise_for_error, json, StringIO
 __all__ = ['LinkedInAuthentication', 'LinkedInApplication', 'PERMISSIONS']
 
 PERMISSIONS = enum('Permission',
-                   COMPANY_ADMIN='rw_company_admin',
                    BASIC_PROFILE='r_liteprofile',
                    FULL_PROFILE='r_fullprofile',
                    EMAIL_ADDRESS='r_emailaddress',
@@ -29,9 +28,14 @@ PERMISSIONS = enum('Permission',
                    NETWORK_UPDATES='rw_nus',
                    GROUPS='rw_groups',
                    MESSAGES='w_messages',
-                   ORGANIZATION='rw_organization',
-                   SHARE='w_member_social')
-
+                   GET_MEMBERS_DATA='r_member_social',
+                   POST_MEMBERS_DATA='w_member_social',
+                   ORGANIZATION_ADMIN='rw_organization_admin',
+                   POST_ORGANIZATION_DATA='w_organization_social',
+                   GET_ORGANIZATION_DATA='r_organization_social',
+                   SEARCH_ORGANIZATION='r_organization_lookup'
+                   )
+                   
 ENDPOINTS = enum('LinkedInURL',
                  BASE='https://api.linkedin.com/v2',
                  PEOPLE='https://api.linkedin.com/v2/people',
