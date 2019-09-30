@@ -379,6 +379,12 @@ class LinkedInApplication(object):
             raise LinkedInError(error.message)
         else:
             return True
+            
+    def get_all_posts(self, subchannel_id, params=None, headers=None):
+            url = '%s/shares?q=owners&owners=urn:li:organization:%s&sharesPerOwner=100&count=100' % (ENDPOINTS.BASE, str(subchannel_id))
+            
+            response = self.make_request('GET', url, params=params, headers=headers)
+            return response.json()   
 
     def comment_post(self, post_id, comment):
         post = {
