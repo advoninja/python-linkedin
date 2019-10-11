@@ -21,20 +21,30 @@ __all__ = ['LinkedInAuthentication', 'LinkedInApplication', 'PERMISSIONS']
 
 PERMISSIONS = enum('Permission',
                    BASIC_PROFILE='r_liteprofile',
-                   FULL_PROFILE='r_fullprofile',
                    EMAIL_ADDRESS='r_emailaddress',
-                   NETWORK='r_network',
-                   CONTACT_INFO='r_contactinfo',
-                   NETWORK_UPDATES='rw_nus',
-                   GROUPS='rw_groups',
-                   MESSAGES='w_messages',
                    GET_MEMBERS_DATA='r_member_social',
                    POST_MEMBERS_DATA='w_member_social',
                    ORGANIZATION_ADMIN='rw_organization_admin',
                    POST_ORGANIZATION_DATA='w_organization_social',
-                   GET_ORGANIZATION_DATA='r_organization_social',
-                   SEARCH_ORGANIZATION='r_organization_lookup'
+                   GET_ORGANIZATION_DATA='r_organization_social'
                    )
+
+# PERMISSIONS = enum('Permission',
+#                    BASIC_PROFILE='r_liteprofile',
+#                    FULL_PROFILE='r_fullprofile',
+#                    EMAIL_ADDRESS='r_emailaddress',
+#                    NETWORK='r_network',
+#                    CONTACT_INFO='r_contactinfo',
+#                    NETWORK_UPDATES='rw_nus',
+#                    GROUPS='rw_groups',
+#                    MESSAGES='w_messages',
+#                    GET_MEMBERS_DATA='r_member_social',
+#                    POST_MEMBERS_DATA='w_member_social',
+#                    ORGANIZATION_ADMIN='rw_organization_admin',
+#                    POST_ORGANIZATION_DATA='w_organization_social',
+#                    GET_ORGANIZATION_DATA='r_organization_social',
+#                    SEARCH_ORGANIZATION='r_organization_lookup'
+#                    )
                    
 ENDPOINTS = enum('LinkedInURL',
                  BASE='https://api.linkedin.com/v2',
@@ -113,7 +123,7 @@ class LinkedInAuthentication(object):
         print "Enter authorization_url linkedin"
         qd = {'response_type': 'code',
               'client_id': self.key,
-              # 'scope': (' '.join(self.permissions)).strip(),
+            #   'scope': (' '.join(self.permissions)).strip(),
               'state': self.state or self._make_new_state(),
               'redirect_uri': self.redirect_uri}
         # urlencode uses quote_plus when encoding the query string so,
@@ -381,7 +391,15 @@ class LinkedInApplication(object):
             return True
             
     def get_all_posts(self, subchannel_id, params=None, headers=None):
-            url = '%s/shares?q=owners&owners=urn:li:organization:%s&sharesPerOwner=100&count=100' % (ENDPOINTS.BASE, str(subchannel_id))
+            url = '%s/shares?q=owners&owners=urn:li:organization:%s&sharesPerOwner=100&count=25' % (ENDPOINTS.BASE, str(subchannel_id))
+            
+            response = self.make_request('GET', url, params=params, headers=headers)
+            return response.json()  
+
+    def get_all_posts_summary(self, postids, params=None, headers=None):
+            url = '%s/socialActions?ids=urn:li:share:%s' % (ENDPOINTS.BASE, str(postids[0]))
+            for postid in postids[1:]:
+                url += '&ids=urn:li:share:%s' %(str(postid))
             
             response = self.make_request('GET', url, params=params, headers=headers)
             return response.json()   
