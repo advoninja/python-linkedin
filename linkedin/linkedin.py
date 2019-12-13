@@ -21,7 +21,7 @@ __all__ = ['LinkedInAuthentication', 'LinkedInApplication', 'PERMISSIONS']
 
 PERMISSIONS = enum('Permission',
                    LITE_PROFILE='r_liteprofile',
-+                  BASIC_PROFILE='r_basicprofile', 
+                   BASIC_PROFILE='r_basicprofile', 
                    EMAIL_ADDRESS='r_emailaddress',
                    GET_MEMBERS_DATA='r_member_social',
                    POST_MEMBERS_DATA='w_member_social',
