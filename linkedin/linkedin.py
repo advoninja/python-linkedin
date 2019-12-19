@@ -121,7 +121,6 @@ class LinkedInAuthentication(object):
 
     @property
     def authorization_url(self):
-        print "Enter authorization_url linkedin"
         qd = {'response_type': 'code',
               'client_id': self.key,
             #   'scope': (' '.join(self.permissions)).strip(),
@@ -142,7 +141,6 @@ class LinkedInAuthentication(object):
         ).hexdigest()
 
     def get_access_token(self, timeout=60):
-        print "Enter get_access_token linkedin"
         assert self.authorization_code, 'You must first get the authorization code'
         qd = {'grant_type': 'authorization_code',
               'code': self.authorization_code,
@@ -182,7 +180,7 @@ class LinkedInApplication(object):
 
     def make_request(self, method, url, data=None, params=None, headers=None,
                      timeout=60):
-        print "Enter make_request"
+        print "make_request {}".format(url)
         if headers is None:
             headers = {'x-li-format': 'json', 'Content-Type': 'application/json'}
         else:
@@ -441,7 +439,6 @@ class LinkedInApplication(object):
         if selectors:
             url = '%s:(%s)' % (url, LinkedInSelector.parse(selectors))
 
-        print url
         url = ENDPOINTS.ORGANIZATIONS
         params={}
         
@@ -450,9 +447,6 @@ class LinkedInApplication(object):
         # }
         response = self.make_request_auth2('GET', url, params=params, headers=headers)
         # response = requests.get(url, params=params, headers=headers)
-        print url
-        print params
-        print headers
         print "get companies"
         print response._content
         raise_for_error(response)
