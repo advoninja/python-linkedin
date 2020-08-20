@@ -216,6 +216,11 @@ class LinkedInApplication(object):
                   headers=headers, timeout=timeout)
 
         return requests.request(method.upper(), url, **kw)
+        
+    def make_authorization_header(self):
+
+        auth_header = {'Authorization': 'Bearer ' + self.authentication.token.access_token}
+        return auth_header
 
     # def get_profile(self, member_id=None, member_url=None, selectors=None,
     #                 params=None, headers=None):
