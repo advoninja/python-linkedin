@@ -1,5 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+from __future__ import print_function
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
+from builtins import map
+from builtins import object
 import contextlib
 import hashlib
 import random
@@ -7,7 +13,7 @@ import random
 try:
     from urllib.parse import quote, quote_plus
 except ImportError:
-    from urllib import quote, quote_plus
+    from urllib.parse import quote, quote_plus
 
 import requests
 from requests_oauthlib import OAuth1
@@ -128,7 +134,7 @@ class LinkedInAuthentication(object):
               'redirect_uri': self.redirect_uri}
         # urlencode uses quote_plus when encoding the query string so,
         # we ought to be encoding the qs by on our own.
-        qsl = ['%s=%s' % (quote(k), quote(v)) for k, v in qd.items()]
+        qsl = ['%s=%s' % (quote(k), quote(v)) for k, v in list(qd.items())]
         return '%s?%s' % (self.AUTHORIZATION_URL, '&'.join(qsl))
 
     @property
@@ -159,7 +165,7 @@ class LinkedInSelector(object):
     def parse(cls, selector):
         with contextlib.closing(StringIO()) as result:
             if type(selector) == dict:
-                for k, v in selector.items():
+                for k, v in list(selector.items()):
                     result.write('%s:(%s)' % (to_utf8(k), cls.parse(v)))
             elif type(selector) in (list, tuple):
                 result.write(','.join(map(cls.parse, selector)))
@@ -180,7 +186,7 @@ class LinkedInApplication(object):
 
     def make_request(self, method, url, data=None, params=None, headers=None,
                      timeout=60):
-        print "make_request {}".format(url)
+        print("make_request {}".format(url))
         if headers is None:
             headers = {'x-li-format': 'json', 'Content-Type': 'application/json'}
         else:
@@ -433,7 +439,7 @@ class LinkedInApplication(object):
         url = ENDPOINTS.ORGANIZATIONS
         # url = ENDPOINTS.COMPANIES
         if company_ids:
-            identifiers += map(str, company_ids)
+            identifiers += list(map(str, company_ids))
 
         if universal_names:
             identifiers += ['universal-name=%s' % un for un in universal_names]
@@ -452,8 +458,8 @@ class LinkedInApplication(object):
         # }
         response = self.make_request_auth2('GET', url, params=params, headers=headers)
         # response = requests.get(url, params=params, headers=headers)
-        print "get companies"
-        print response._content
+        print("get companies")
+        print(response._content)
         raise_for_error(response)
         return response.json()
 
